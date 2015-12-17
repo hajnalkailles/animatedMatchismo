@@ -99,19 +99,27 @@
 
 - (void)drawShape
 {
-    if (self.number == 1) {
-        [self drawShapeWithHorizontalOffset:0 verticalOffset:0];
-    }
-    if (self.number == 2) {
-        [self drawShapeWithHorizontalOffset:0 verticalOffset: SHAPE_OFFSET2_PERCENTAGE];
-        [self drawShapeWithHorizontalOffset:0 verticalOffset: -SHAPE_OFFSET2_PERCENTAGE];
-    }
-    if (self.number == 3) {
-        [self drawShapeWithHorizontalOffset:0 verticalOffset:0];
-        [self drawShapeWithHorizontalOffset:0 verticalOffset:SHAPE_OFFSET3_PERCENTAGE];
-        [self drawShapeWithHorizontalOffset:0 verticalOffset:-SHAPE_OFFSET3_PERCENTAGE];
+    switch (self.number) {
+        case 1:
+            [self drawShapeWithHorizontalOffset:0 verticalOffset:0];
+            break;
+        case 2:
+            [self drawShapeWithHorizontalOffset:0 verticalOffset: SHAPE_OFFSET2_PERCENTAGE];
+            [self drawShapeWithHorizontalOffset:0 verticalOffset: -SHAPE_OFFSET2_PERCENTAGE];
+            break;
+        default:
+            [self drawShapeWithHorizontalOffset:0 verticalOffset:0];
+            [self drawShapeWithHorizontalOffset:0 verticalOffset:SHAPE_OFFSET3_PERCENTAGE];
+            [self drawShapeWithHorizontalOffset:0 verticalOffset:-SHAPE_OFFSET3_PERCENTAGE];
+            break;
     }
 }
+
+#define SQUIGGLE_WIDTH 0.12
+#define SQUIGGLE_HEIGHT 0.3
+#define SQUIGGLE_FACTOR 0.8
+
+#define SYMBOL_LINE_WIDTH 0.02;
 
 - (void)drawShapeWithHorizontalOffset:(CGFloat)hoffset
                        verticalOffset:(CGFloat)voffset
@@ -120,73 +128,72 @@
     
     //determine somehow symbol size
     CGSize symbolSize = CGSizeMake(15, 15);
-    
-    //diamond
-    if (self.symbol == 1) {
+    CGSize squiggleSize = CGSizeMake(30, 15);
     UIBezierPath *symbolPath = [[UIBezierPath alloc] init];
-    [symbolPath moveToPoint:CGPointMake(middle.x,
-                                        middle.y-symbolSize.height/2.0-voffset*self.bounds.size.height)];
     
-    [symbolPath addLineToPoint:CGPointMake(middle.x+symbolSize.width/2.0+hoffset*self.bounds.size.width+5, middle.y-voffset*self.bounds.size.height)];
-    [symbolPath addLineToPoint:CGPointMake(middle.x, middle.y+symbolSize.height/2.0-voffset*self.bounds.size.height)];
-    [symbolPath addLineToPoint:CGPointMake(middle.x-symbolSize.width/2.0-hoffset*self.bounds.size.width-5, middle.y-voffset*self.bounds.size.height)];
-    [symbolPath closePath];
+    switch (self.symbol)
+    {
+        case 1:
+            [symbolPath moveToPoint:CGPointMake(middle.x,
+                                                middle.y-symbolSize.height/2.0-voffset*self.bounds.size.height)];
+            [symbolPath addLineToPoint:CGPointMake(middle.x+symbolSize.width/2.0+hoffset*self.bounds.size.width+5, middle.y-voffset*self.bounds.size.height)];
+            [symbolPath addLineToPoint:CGPointMake(middle.x, middle.y+symbolSize.height/2.0-voffset*self.bounds.size.height)];
+            [symbolPath addLineToPoint:CGPointMake(middle.x-symbolSize.width/2.0-hoffset*self.bounds.size.width-5, middle.y-voffset*self.bounds.size.height)];
+            [symbolPath closePath];
+            break;
+        case 2:
+            symbolPath = [UIBezierPath bezierPathWithOvalInRect:
+                          CGRectMake(middle.x-symbolSize.width-hoffset*self.bounds.size.width,
+                                     middle.y-symbolSize.height/2.0-voffset*self.bounds.size.height,
+                                     (middle.x-(middle.x-symbolSize.width/2.0-hoffset*self.bounds.size.width))*4,
+                                     (middle.y-(middle.y-symbolSize.height/2.0))*2)];
+            break;
+        default:
+        {
+            [symbolPath moveToPoint:CGPointMake(104, 15)];
+            [symbolPath addCurveToPoint:CGPointMake(63, 54) controlPoint1:CGPointMake(112.4, 36.9) controlPoint2:CGPointMake(89.7, 60.8)];
+            [symbolPath addCurveToPoint:CGPointMake(27, 53) controlPoint1:CGPointMake(52.3, 51.3) controlPoint2:CGPointMake(42.2, 42)];
+            [symbolPath addCurveToPoint:CGPointMake(5, 40) controlPoint1:CGPointMake(9.6, 65.6) controlPoint2:CGPointMake(5.4, 58.3)];
+            [symbolPath addCurveToPoint:CGPointMake(36, 12) controlPoint1:CGPointMake(4.6, 22) controlPoint2:CGPointMake(19.1, 9.7)];
+            [symbolPath addCurveToPoint:CGPointMake(89, 14) controlPoint1:CGPointMake(59.2, 15.2) controlPoint2:CGPointMake(61.9, 31.5)];
+            [symbolPath addCurveToPoint:CGPointMake(104, 15) controlPoint1:CGPointMake(95.3, 10) controlPoint2:CGPointMake(100.9, 6.9)];
+            
+            [symbolPath applyTransform:CGAffineTransformMakeScale(0.9524*squiggleSize.width/100, 0.9524*squiggleSize.height/50)];
+            
+            [symbolPath applyTransform:CGAffineTransformMakeTranslation(middle.x - symbolSize.width, middle.y - squiggleSize.height/2-voffset*self.bounds.size.height)];
+            
+            //[symbolPath applyTransform:CGAffineTransformMakeTranslation(middle.x - squiggleSize.width/2 - 3 * squiggleSize.width /100, middle.y - squiggleSize.height/2 - 8 * squiggleSize.height/50)];
+        }
+            break;
+    }
     
-    //[self.color setFill];
-    [[UIColor blackColor] setStroke];
+    UIColor *tempColor = [UIColor blackColor];
+    switch (self.color)
+    {
+        case 1:
+            tempColor = [UIColor greenColor];
+            break;
+        case 2:
+            tempColor = [UIColor redColor];
+            break;
+        default:
+            tempColor = [UIColor purpleColor];
+            break;
+    }
+    
+    if ([self.shading isEqualToString:@"solid"]) {
+        [tempColor setFill];
+        [tempColor setStroke];
+    } else if ([self.shading isEqualToString:@"striped"]) {
+        //draw stripes
+        [[tempColor colorWithAlphaComponent:0.6] setFill];
+        [[UIColor blackColor] setStroke];
+    } else if ([self.shading isEqualToString:@"open"]) {
+        [[UIColor clearColor] setFill];
+        [tempColor setStroke];
+    }
     [symbolPath fill];
     [symbolPath stroke];
-    }
-    
-    //oval
-    if (self.symbol == 2) {
-    UIBezierPath *ovalPath = [UIBezierPath bezierPathWithOvalInRect:
-                               CGRectMake(middle.x-symbolSize.width-hoffset*self.bounds.size.width,
-                                          middle.y-symbolSize.height/2.0-voffset*self.bounds.size.height,
-                                          (middle.x-(middle.x-symbolSize.width/2.0-hoffset*self.bounds.size.width))*4,
-                                          (middle.y-(middle.y-symbolSize.height/2.0))*2)];
-    //[self.color setFill];
-    [[UIColor blackColor] setStroke];
-    [ovalPath fill];
-    [ovalPath stroke];
-    }
-    
-    //squiggle
-    if (self.symbol == 3){
-        CGSize squiggleSize = CGSizeMake(30, 15);
-        
-        UIBezierPath *path = [[UIBezierPath alloc] init];
-        [path moveToPoint:CGPointMake(104, 15)];
-        [path addCurveToPoint:CGPointMake(63, 54) controlPoint1:CGPointMake(112.4, 36.9) controlPoint2:CGPointMake(89.7, 60.8)];
-        [path addCurveToPoint:CGPointMake(27, 53) controlPoint1:CGPointMake(52.3, 51.3) controlPoint2:CGPointMake(42.2, 42)];
-        [path addCurveToPoint:CGPointMake(5, 40) controlPoint1:CGPointMake(9.6, 65.6) controlPoint2:CGPointMake(5.4, 58.3)];
-        [path addCurveToPoint:CGPointMake(36, 12) controlPoint1:CGPointMake(4.6, 22) controlPoint2:CGPointMake(19.1, 9.7)];
-        [path addCurveToPoint:CGPointMake(89, 14) controlPoint1:CGPointMake(59.2, 15.2) controlPoint2:CGPointMake(61.9, 31.5)];
-        [path addCurveToPoint:CGPointMake(104, 15) controlPoint1:CGPointMake(95.3, 10) controlPoint2:CGPointMake(100.9, 6.9)];
-        
-        [path applyTransform:CGAffineTransformMakeScale(0.9524*squiggleSize.width/100, 0.9524*squiggleSize.height/50)];
-        [path applyTransform:CGAffineTransformMakeTranslation(middle.x - squiggleSize.width/2 - 3 * squiggleSize.width /100, middle.y - squiggleSize.height/2 - 8 * squiggleSize.height/50)];
-        
-        //[self.color setFill];
-        [[UIColor blackColor] setStroke];
-        [path fill];
-        [path stroke];
-
-    }
-    
-    /*NSAttributedString *attributedSymbol = [[NSAttributedString alloc] initWithString:self.symbol attributes:@{NSForegroundColorAttributeName: self.color}];
-    CGSize symbolSize = [attributedSymbol size];
-    
-    CGPoint symbolOrigin = CGPointMake(
-                                       middle.x-symbolSize.width/2.0-hoffset*self.bounds.size.width,
-                                       middle.y-symbolSize.height/2.0-voffset*self.bounds.size.height
-                                    );
-    [attributedSymbol drawAtPoint:symbolOrigin];
-    
-    if (hoffset) {
-        symbolOrigin.x += hoffset*2.0*self.bounds.size.width;
-        [attributedSymbol drawAtPoint:symbolOrigin];
-    }*/
 }
 
 #pragma mark - Initialization

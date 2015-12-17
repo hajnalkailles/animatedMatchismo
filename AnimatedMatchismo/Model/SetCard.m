@@ -15,27 +15,22 @@
 {
     int score = 0;
     
-    NSMutableSet *symbolSet = [[NSMutableSet alloc] init];
-    NSMutableSet *numberSet = [[NSMutableSet alloc] init];
-    NSMutableSet *shadingSet = [[NSMutableSet alloc] init];
-    NSMutableSet *colorSet = [[NSMutableSet alloc] init];
-    
-    [symbolSet addObject: @(self.symbol)];
-    [numberSet addObject: @(self.number)];
-    [shadingSet addObject: self.shading];
-    [colorSet addObject: @(self.color)];
+    NSMutableSet *numberSet = [[NSMutableSet alloc] initWithObjects:@(self.number), nil];
+    NSMutableSet *symbolSet = [[NSMutableSet alloc] initWithObjects:@(self.symbol), nil];
+    NSMutableSet *colorSet = [[NSMutableSet alloc] initWithObjects:@(self.color), nil];
+    NSMutableSet *shadingSet = [[NSMutableSet alloc] initWithObjects:self.shading, nil];
     
     for (SetCard *otherCard in otherCards) {
-        [symbolSet addObject: @(otherCard.symbol)];
         [numberSet addObject: @(otherCard.number)];
-        [shadingSet addObject: otherCard.shading];
+        [symbolSet addObject: @(otherCard.symbol)];
         [colorSet addObject: @(otherCard.color)];
+        [shadingSet addObject: otherCard.shading];
     }
     
-    if ([symbolSet count] == 1 || [symbolSet count] == 3) {
-        if ([numberSet count] == 1 || [numberSet count] == 3) {
-            if ([shadingSet count] == 1 || [shadingSet count] == 3) {
-                if ([colorSet count] == 1 || [colorSet count] == 3) {
+    if ([numberSet count] == 1 || [numberSet count] == 3) {
+        if ([symbolSet count] == 1 || [symbolSet count] == 3) {
+            if ([colorSet count] == 1 || [colorSet count] == 3) {
+                if ([shadingSet count] == 1 || [shadingSet count] == 3) {
                     score = 4;
                 }
             }
@@ -68,25 +63,11 @@
     return titleString;
 }
 
-@synthesize symbol = _symbol;
-
-+ (NSArray *) validSymbols
-{
-    return @[@"◼︎",@"▲",@"●"];
-}
-
 -(void)setSymbol:(NSUInteger)symbol
 {
     if (symbol <= [SetCard maxSymbol]) {
         _symbol = symbol;
     }
-}
-
-@synthesize color = _color;
-
-+ (NSArray *) validColors
-{
-    return @[[UIColor redColor], [UIColor greenColor], [UIColor orangeColor]];
 }
 
 -(void)setColor:(NSUInteger)color
@@ -112,7 +93,7 @@
 
 + (NSUInteger) maxNumber
 {
-    return [[self validSymbols] count];
+    return 3;
 }
 
 -(void)setNumber:(NSUInteger)number
@@ -124,12 +105,12 @@
 
 + (NSUInteger) maxSymbol
 {
-    return [[self validSymbols] count];
+    return [self maxNumber];
 }
 
 + (NSUInteger) maxColor
 {
-    return [[self validColors] count];
+    return [self maxNumber];
 }
 
 @end
