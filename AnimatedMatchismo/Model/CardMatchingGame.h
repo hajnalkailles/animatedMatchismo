@@ -17,7 +17,6 @@
 -(void)chooseCardAtIndex:(NSUInteger)index;
 -(Card*)cardAtIndex:(NSUInteger)index;
 
--(Card*)cardToAdd;
 -(NSUInteger)numberOfCardsPlayed;
 
 @property (nonatomic, strong) Deck *cardDeck;

@@ -64,11 +64,11 @@
     return 0;
 }
 
-- (void)createCards
+- (void)createCards  //abstract
 {
 }
 
-- (void)updateUI
+- (void)updateUI  //abstract
 {
 }
 
@@ -88,16 +88,6 @@
     [self updateUI];
     [self updateCardsToMatch];
     self.resetWasPressed = NO;
-}
-
-- (NSAttributedString *) titleForCard:(Card *)card  //abstract
-{
-    return nil;
-}
-
-- (UIImage *) backgroundImageForCard:(Card *)card   //abstract
-{
-    return nil;
 }
 
 -(void)viewDidLoad

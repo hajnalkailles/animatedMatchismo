@@ -40,27 +40,16 @@
     return score;
 }
 
-- (NSAttributedString *) attributedContents
+-(void)setNumber:(NSUInteger)number
 {
-    NSMutableString *title = [[NSMutableString alloc] initWithString: [NSString stringWithFormat:@"%@", @(self.symbol)]];
-    int index = 1;
-    while (index < self.number) {
-        [title appendString: [NSString stringWithFormat:@"%@", @(self.symbol)]];
-        index++;
+    if (number <= [SetCard maxNumber]) {
+        _number = number;
     }
-    NSMutableDictionary *attributesDictionary = [[NSMutableDictionary alloc] init];
-    if ([self.shading isEqualToString:@"solid"]) {
-        [attributesDictionary setObject:@-5 forKey:NSStrokeWidthAttributeName];
-    } else if ([self.shading isEqualToString:@"striped"]) {
-        [attributesDictionary setObject:@-7 forKey:NSStrokeWidthAttributeName];
-        [attributesDictionary setObject:[UIColor blackColor] forKey:NSStrokeColorAttributeName];
-    } else if ([self.shading isEqualToString:@"open"]) {
-        [attributesDictionary setObject:@5 forKey:NSStrokeWidthAttributeName];
-    }
-    //[attributesDictionary setObject:self.color forKey:NSForegroundColorAttributeName];
-    NSAttributedString *titleString = [[NSAttributedString alloc] initWithString:title attributes: attributesDictionary];
-    
-    return titleString;
+}
+
++ (NSUInteger) maxNumber
+{
+    return 3;
 }
 
 -(void)setSymbol:(NSUInteger)symbol
@@ -70,11 +59,21 @@
     }
 }
 
++ (NSUInteger) maxSymbol
+{
+    return [self maxNumber];
+}
+
 -(void)setColor:(NSUInteger)color
 {
     if (color <= [SetCard maxColor]) {
         _color = color;
     }
+}
+
++ (NSUInteger) maxColor
+{
+    return [self maxNumber];
 }
 
 @synthesize shading = _shading;
@@ -91,26 +90,9 @@
     }
 }
 
-+ (NSUInteger) maxNumber
+-(NSString *)shading
 {
-    return 3;
-}
-
--(void)setNumber:(NSUInteger)number
-{
-    if (number <= [SetCard maxNumber]) {
-        _number = number;
-    }
-}
-
-+ (NSUInteger) maxSymbol
-{
-    return [self maxNumber];
-}
-
-+ (NSUInteger) maxColor
-{
-    return [self maxNumber];
+    return _shading ? _shading : @"?";
 }
 
 @end

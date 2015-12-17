@@ -44,8 +44,6 @@
         
         PlayingCardView *cardView = [[PlayingCardView alloc] initWithFrame: CGRectMake(frame.origin.x+(i%4+1)*widthSpace, frame.origin.y+4*(i/4+1), frame.size.width, frame.size.height)];
         
-        [cardView addGestureRecognizer:[[UIPinchGestureRecognizer alloc] initWithTarget:cardView action:@selector(pinch:)]];
-        
         UITapGestureRecognizer *tapRecognizer = [[UITapGestureRecognizer alloc]
                                                  initWithTarget:self action:@selector(tap:)];
         tapRecognizer.numberOfTapsRequired = 1;
@@ -140,20 +138,6 @@
 - (void)updateCardsToMatch
 {
     self.game.cardsToMatch = 2;
-}
-
-- (UIImage *) backgroundImageForCard:(Card *)card
-{
-    return [UIImage imageNamed:card.isChosen ? @"cardfront" : @"cardback"];
-}
-
-- (NSAttributedString *) titleForCard:(Card *)card
-{
-    if (card.isChosen) {
-        return card.attributedContents;
-    } else {
-        return [[NSAttributedString alloc] initWithString:@""];
-    }
 }
 
 @end

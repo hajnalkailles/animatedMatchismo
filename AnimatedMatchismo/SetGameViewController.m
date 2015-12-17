@@ -42,7 +42,6 @@
         CGFloat widthSpace = (self.cardSuperView.bounds.size.width-4*frame.size.width)/5;
         
         SetCardView *cardView = [[SetCardView alloc] initWithFrame: CGRectMake(frame.origin.x+(i%4+1)*widthSpace, frame.origin.y+4*(i/4+1), frame.size.width, frame.size.height)];
-        //set center
         
         UITapGestureRecognizer *tapRecognizer = [[UITapGestureRecognizer alloc]
                                                  initWithTarget:self action:@selector(tap:)];
@@ -142,16 +141,5 @@
 {
     self.game.cardsToMatch = 3;
 }
-
-- (UIImage *) backgroundImageForCard:(Card *)card
-{
-    return [UIImage imageNamed:card.isChosen ? @"cardfrontSelected" : @"cardfront"];
-}
-
-- (NSAttributedString *) titleForCard:(Card *)card
-{
-    return card.attributedContents;
-}
-
 
 @end

@@ -70,12 +70,6 @@
     return score;
 }
 
-- (NSAttributedString *)attributedContents
-{
-    NSArray *rankStrings = [PlayingCard rankStrings];
-    return [[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@"%@%@", rankStrings[self.rank], self.suit] attributes:@{NSForegroundColorAttributeName : [UIColor blackColor]}];
-}
-
 @synthesize suit = _suit;
 
 + (NSArray *) validSuits

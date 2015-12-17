@@ -16,6 +16,4 @@
 
 @property (nonatomic) NSUInteger cardIndex;
 
-- (void)pinch:(UIPinchGestureRecognizer *)gesture;
-
 @end

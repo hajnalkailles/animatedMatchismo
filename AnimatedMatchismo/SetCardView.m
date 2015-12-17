@@ -161,8 +161,6 @@
             [symbolPath applyTransform:CGAffineTransformMakeScale(0.9524*squiggleSize.width/100, 0.9524*squiggleSize.height/50)];
             
             [symbolPath applyTransform:CGAffineTransformMakeTranslation(middle.x - symbolSize.width, middle.y - squiggleSize.height/2-voffset*self.bounds.size.height)];
-            
-            //[symbolPath applyTransform:CGAffineTransformMakeTranslation(middle.x - squiggleSize.width/2 - 3 * squiggleSize.width /100, middle.y - squiggleSize.height/2 - 8 * squiggleSize.height/50)];
         }
             break;
     }

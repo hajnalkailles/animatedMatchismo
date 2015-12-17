@@ -11,7 +11,7 @@
 
 @interface CardMatchingGame()
 @property (nonatomic, readwrite) NSInteger score;
-@property (nonatomic, strong) NSMutableArray *cards;    //of Card
+@property (nonatomic, strong) NSMutableArray *cards;
 @property (nonatomic) NSUInteger cardsPlayed;
 @end
 
@@ -70,7 +70,6 @@ static const int COST_TO_CHOOSE = 1;
                 if (matchScore) {
                     self.score += matchScore * MATCH_BONUS;
                     card.matched = YES;
-                    //add new
                     Card *card = [self.cardDeck drawRandomCard];
                     if (card) {
                         [self.cards addObject:card];
@@ -78,7 +77,6 @@ static const int COST_TO_CHOOSE = 1;
                     }
                     for (Card *card in otherCards) {
                         card.matched = YES;
-                        //add new
                         Card *card = [self.cardDeck drawRandomCard];
                         if (card) {
                             [self.cards addObject:card];
@@ -101,11 +99,6 @@ static const int COST_TO_CHOOSE = 1;
 - (Card *)cardAtIndex:(NSUInteger)index
 {
     return (index < [self.cards count]) ? self.cards[index] : nil;
-}
-
-- (Card*)cardToAdd
-{
-    return nil;
 }
 
 - (NSUInteger)numberOfCardsPlayed
