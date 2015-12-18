@@ -34,6 +34,12 @@
     return 12;
 }
 
+- (void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation
+{
+    self.cardGrid.size = self.cardSuperView.bounds.size;
+    [self updateUI];
+}
+
 -(void) createCards
 {
     for (int i = 0; i < self.cardGrid.minimumNumberOfCells; i++) {
@@ -60,7 +66,7 @@
         
         [UIView transitionWithView:sender.view
                           duration:0.5
-                           options: UIViewAnimationOptionTransitionFlipFromLeft animations:^{
+                           options: UIViewAnimationOptionTransitionNone animations:^{
                                Card *card = [self.game cardAtIndex: tappedView.cardIndex];
                                card.chosen = !card.chosen;
                            } completion:^(BOOL finished) {
@@ -74,36 +80,58 @@
     }
 }
 
+-(void)setCardViewFrames
+{
+    int cardViewIndex = 0;
+    for (int row = 0; row < self.cardGrid.rowCount; row++) {
+        for (int col = 0; col < self.cardGrid.columnCount; col++) {
+            if (cardViewIndex < self.cardGrid.minimumNumberOfCells) {
+                UIView *view = [self.cardViews objectAtIndex:cardViewIndex];
+                
+                CGRect frame = [self.cardGrid frameOfCellAtRow:row inColumn:col];
+                view.frame = CGRectMake(frame.origin.x, frame.origin.y, frame.size.width, frame.size.height);
+                
+                cardViewIndex++;
+            }
+        }
+    }
+    
+}
+
 -(void)updateUI
 {
+    [UIView animateWithDuration:0.5 animations:^{
+        [self setCardViewFrames];
+    } completion:nil];
+    
     if (self.resetWasPressed)
     {
         [UIView animateWithDuration:0.5 animations:^{
             CGRect frame = [self.cardGrid frameOfCellAtRow:0 inColumn:0];
-            CGFloat widthSpace = (self.cardSuperView.bounds.size.width-4*frame.size.width)/5;
             
             for (UIView *subView in self.cardViews) {
-                subView.frame = CGRectMake(frame.origin.x+widthSpace,
-                                           frame.origin.y+4,
+                subView.frame = CGRectMake(frame.origin.x,
+                                           frame.origin.y,
                                            frame.size.width,
                                            frame.size.height);
             }
-        } completion:^(BOOL finished) {
-        }];
+        } completion: nil];
         
         [UIView animateWithDuration:0.5 delay: 1.0 options: UIViewAnimationOptionTransitionNone animations:^{
-            int i = 0;
-            for (UIView *view in self.cardViews) {
-                CGRect frame = [self.cardGrid frameOfCellAtRow:i/4 inColumn:i%4];
-                CGFloat widthSpace = (self.cardSuperView.bounds.size.width-4*frame.size.width)/5;
-                view.frame = CGRectMake(frame.origin.x+(i%4+1)*widthSpace,
-                                        frame.origin.y+4*(i/4+1),
-                                        frame.size.width,
-                                        frame.size.height);
-                i++;
+            int cardViewIndex = 0;
+            for (int row = 0; row < self.cardGrid.rowCount; row++) {
+                for (int col = 0; col < self.cardGrid.columnCount; col++) {
+                    if (cardViewIndex < self.cardGrid.minimumNumberOfCells) {
+                        UIView *view = [self.cardViews objectAtIndex:cardViewIndex];
+                        
+                        CGRect frame = [self.cardGrid frameOfCellAtRow:row inColumn:col];
+                        view.frame = CGRectMake(frame.origin.x, frame.origin.y, frame.size.width, frame.size.height);
+                        
+                        cardViewIndex++;
+                    }
+                }
             }
-        } completion:^(BOOL finished){
-        }];
+        } completion:nil];
     }
     
     int indexOfView = 0;

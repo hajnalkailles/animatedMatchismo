@@ -38,8 +38,7 @@
     {
         _cardGrid = [[Grid alloc] init];
         _cardGrid.cellAspectRatio = 0.68;
-        CGSize tempSize = CGSizeMake(self.cardSuperView.bounds.size.width, self.cardSuperView.bounds.size.height);
-        _cardGrid.size = tempSize;
+        _cardGrid.size = CGSizeMake(self.cardSuperView.bounds.size.width, self.cardSuperView.bounds.size.height);;
         _cardGrid.minimumNumberOfCells = [self numberOfCardsForGame];
         if (_cardGrid.inputsAreValid)
             NSLog(@"Inputs are valid.");

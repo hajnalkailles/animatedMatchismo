@@ -3,6 +3,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9051"/>
+        <capability name="Alignment constraints with different attributes" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
@@ -51,7 +52,7 @@
                                     <action selector="touchResetButton:" destination="AAw-K0-oca" eventType="touchUpInside" id="p5y-bC-D2h"/>
                                 </connections>
                             </button>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="d5p-Ar-rad">
+                            <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="d5p-Ar-rad">
                                 <rect key="frame" x="0.0" y="0.0" width="240" height="128"/>
                                 <color key="backgroundColor" red="0.0" green="0.50196081400000003" blue="0.25098040700000002" alpha="1" colorSpace="calibratedRGB"/>
                             </view>
@@ -74,17 +75,6 @@
                                 <exclude reference="YE5-sV-4dc"/>
                                 <exclude reference="d5p-Ar-rad"/>
                             </mask>
-                            <mask key="constraints">
-                                <exclude reference="7ao-BJ-tqG"/>
-                                <exclude reference="YOZ-K5-hdk"/>
-                                <exclude reference="tvq-SR-80b"/>
-                                <exclude reference="KlL-j9-d9g"/>
-                                <exclude reference="Okg-B6-T92"/>
-                                <exclude reference="Ij0-U1-8De"/>
-                                <exclude reference="qft-KO-MiX"/>
-                                <exclude reference="RLO-If-UXp"/>
-                                <exclude reference="ak2-eE-gto"/>
-                            </mask>
                         </variation>
                         <variation key="widthClass=compact">
                             <mask key="subviews">
@@ -93,15 +83,15 @@
                                 <include reference="d5p-Ar-rad"/>
                             </mask>
                             <mask key="constraints">
-                                <include reference="7ao-BJ-tqG"/>
-                                <include reference="YOZ-K5-hdk"/>
-                                <include reference="tvq-SR-80b"/>
-                                <include reference="KlL-j9-d9g"/>
-                                <include reference="Okg-B6-T92"/>
                                 <include reference="Ij0-U1-8De"/>
                                 <include reference="qft-KO-MiX"/>
                                 <include reference="RLO-If-UXp"/>
                                 <include reference="ak2-eE-gto"/>
+                                <include reference="KlL-j9-d9g"/>
+                                <include reference="Okg-B6-T92"/>
+                                <include reference="7ao-BJ-tqG"/>
+                                <include reference="YOZ-K5-hdk"/>
+                                <include reference="tvq-SR-80b"/>
                             </mask>
                         </variation>
                     </view>
@@ -143,7 +133,7 @@
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="iyW-bE-hrK">
+                            <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="iyW-bE-hrK">
                                 <rect key="frame" x="0.0" y="0.0" width="240" height="128"/>
                                 <color key="backgroundColor" red="0.0" green="0.50196081400000003" blue="0.25098040700000002" alpha="1" colorSpace="calibratedRGB"/>
                             </view>
@@ -166,17 +156,6 @@
                                 <exclude reference="PTz-BG-NnA"/>
                                 <exclude reference="iyW-bE-hrK"/>
                             </mask>
-                            <mask key="constraints">
-                                <exclude reference="3er-4Z-p3e"/>
-                                <exclude reference="gLb-65-MRf"/>
-                                <exclude reference="qsX-SG-5g7"/>
-                                <exclude reference="HLh-RR-vQq"/>
-                                <exclude reference="YwW-Rk-NPQ"/>
-                                <exclude reference="090-0O-nai"/>
-                                <exclude reference="p54-Lc-ge9"/>
-                                <exclude reference="BP1-Z7-hdc"/>
-                                <exclude reference="W1T-NG-qLY"/>
-                            </mask>
                         </variation>
                         <variation key="widthClass=compact">
                             <mask key="subviews">
@@ -185,15 +164,15 @@
                                 <include reference="iyW-bE-hrK"/>
                             </mask>
                             <mask key="constraints">
-                                <include reference="3er-4Z-p3e"/>
-                                <include reference="gLb-65-MRf"/>
-                                <include reference="qsX-SG-5g7"/>
-                                <include reference="HLh-RR-vQq"/>
-                                <include reference="YwW-Rk-NPQ"/>
                                 <include reference="090-0O-nai"/>
                                 <include reference="p54-Lc-ge9"/>
                                 <include reference="BP1-Z7-hdc"/>
                                 <include reference="W1T-NG-qLY"/>
+                                <include reference="HLh-RR-vQq"/>
+                                <include reference="YwW-Rk-NPQ"/>
+                                <include reference="3er-4Z-p3e"/>
+                                <include reference="gLb-65-MRf"/>
+                                <include reference="qsX-SG-5g7"/>
                             </mask>
                         </variation>
                     </view>
