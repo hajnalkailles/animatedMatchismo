@@ -26,6 +26,7 @@
                         card.color = color;
                         card.shading = shading;
                         [self addCard:card];
+                        self.cardsInDeck++;
                     }
                 }
             }

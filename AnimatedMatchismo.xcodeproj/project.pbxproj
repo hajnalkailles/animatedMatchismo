@@ -93,6 +93,8 @@
 				AAE6B5021C200FB500A62100 /* SetCardDeck.m */,
 				AAE6B5041C20103200A62100 /* CardMatchingGame.h */,
 				AAE6B5051C20103200A62100 /* CardMatchingGame.m */,
+				AAE6B50D1C203E1F00A62100 /* Grid.h */,
+				AAE6B50E1C203E1F00A62100 /* Grid.m */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -127,8 +129,6 @@
 				AAE6B50B1C20304C00A62100 /* PlayingCardView.m */,
 				AAE6B5121C2156CD00A62100 /* SetCardView.h */,
 				AAE6B5131C2156CD00A62100 /* SetCardView.m */,
-				AAE6B50D1C203E1F00A62100 /* Grid.h */,
-				AAE6B50E1C203E1F00A62100 /* Grid.m */,
 				AAECAB681C1ED78900EFC7F2 /* Main.storyboard */,
 				AAE6B4F11C200CC300A62100 /* Model */,
 				AAECAB6B1C1ED78900EFC7F2 /* Assets.xcassets */,

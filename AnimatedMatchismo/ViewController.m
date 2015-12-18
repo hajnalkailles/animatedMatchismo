@@ -38,12 +38,9 @@
     {
         _cardGrid = [[Grid alloc] init];
         _cardGrid.cellAspectRatio = 0.68;
-        _cardGrid.size = CGSizeMake(self.cardSuperView.bounds.size.width, self.cardSuperView.bounds.size.height);;
-        _cardGrid.minimumNumberOfCells = [self numberOfCardsForGame];
-        if (_cardGrid.inputsAreValid)
-            NSLog(@"Inputs are valid.");
+        _cardGrid.size = CGSizeMake(self.cardSuperView.bounds.size.width, self.cardSuperView.bounds.size.height);
+        _cardGrid.minimumNumberOfCells = self.numberOfCards;
     }
-    
     return _cardGrid;
 }
 
@@ -54,16 +51,10 @@
         _cardViews = [[NSMutableArray alloc] init];
         [self createCards];
     }
-    
     return _cardViews;
 }
 
-- (NSUInteger) numberOfCardsForGame
-{
-    return 0;
-}
-
-- (void)createCards  //abstract
+-(void) createCards
 {
 }
 
@@ -80,6 +71,23 @@
 {
 }
 
+-(void)setCardViewFrames
+{
+    int cardViewIndex = 0;
+    for (int row = 0; row < self.cardGrid.rowCount; row++) {
+        for (int col = 0; col < self.cardGrid.columnCount; col++) {
+            if (cardViewIndex < self.cardGrid.minimumNumberOfCells) {
+                UIView *view = [self.cardViews objectAtIndex:cardViewIndex];
+                
+                CGRect frame = [self.cardGrid frameOfCellAtRow:row inColumn:col];
+                view.frame = CGRectMake(frame.origin.x, frame.origin.y, frame.size.width, frame.size.height);
+                
+                cardViewIndex++;
+            }
+        }
+    }
+}
+
 - (IBAction)touchResetButton:(UIButton *)sender
 {
     self.resetWasPressed = YES;
@@ -87,11 +95,6 @@
     [self updateUI];
     [self updateCardsToMatch];
     self.resetWasPressed = NO;
-}
-
--(void)viewDidLoad
-{
-    
 }
 
 @end

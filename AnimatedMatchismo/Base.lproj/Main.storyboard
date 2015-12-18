@@ -137,6 +137,15 @@
                                 <rect key="frame" x="0.0" y="0.0" width="240" height="128"/>
                                 <color key="backgroundColor" red="0.0" green="0.50196081400000003" blue="0.25098040700000002" alpha="1" colorSpace="calibratedRGB"/>
                             </view>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uKE-Fv-MJ8">
+                                <rect key="frame" x="-23" y="-15" width="46" height="30"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <state key="normal" title="3 More Cards"/>
+                                <connections>
+                                    <action selector="touchMoreCardsButton:" destination="L3u-P0-oF1" eventType="touchUpInside" id="ImE-jE-2gX"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="0.0" green="0.50196081400000003" blue="0.25098040700000002" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
@@ -144,9 +153,12 @@
                             <constraint firstItem="iyW-bE-hrK" firstAttribute="leading" secondItem="L2p-64-noW" secondAttribute="leadingMargin" id="3er-4Z-p3e"/>
                             <constraint firstItem="37d-s4-3On" firstAttribute="top" secondItem="iyW-bE-hrK" secondAttribute="bottom" constant="8" id="BP1-Z7-hdc"/>
                             <constraint firstItem="PTz-BG-NnA" firstAttribute="leading" secondItem="L2p-64-noW" secondAttribute="leadingMargin" id="HLh-RR-vQq"/>
+                            <constraint firstItem="37d-s4-3On" firstAttribute="leading" secondItem="uKE-Fv-MJ8" secondAttribute="trailing" constant="8" id="P3K-FT-Gjy"/>
+                            <constraint firstItem="uKE-Fv-MJ8" firstAttribute="top" secondItem="iyW-bE-hrK" secondAttribute="bottom" constant="8" id="UaR-Si-8sh"/>
                             <constraint firstItem="37d-s4-3On" firstAttribute="trailing" secondItem="L2p-64-noW" secondAttribute="trailingMargin" id="W1T-NG-qLY"/>
                             <constraint firstItem="PTz-BG-NnA" firstAttribute="top" secondItem="iyW-bE-hrK" secondAttribute="bottom" constant="8" id="YwW-Rk-NPQ"/>
                             <constraint firstItem="iyW-bE-hrK" firstAttribute="top" secondItem="Byo-Kd-tUP" secondAttribute="bottom" id="gLb-65-MRf"/>
+                            <constraint firstItem="cfk-oh-0ZK" firstAttribute="top" secondItem="uKE-Fv-MJ8" secondAttribute="bottom" constant="8" id="ma2-J6-7mc"/>
                             <constraint firstItem="cfk-oh-0ZK" firstAttribute="top" secondItem="PTz-BG-NnA" secondAttribute="bottom" constant="8" id="p54-Lc-ge9"/>
                             <constraint firstItem="iyW-bE-hrK" firstAttribute="trailing" secondItem="L2p-64-noW" secondAttribute="trailingMargin" id="qsX-SG-5g7"/>
                         </constraints>
@@ -155,6 +167,12 @@
                                 <exclude reference="37d-s4-3On"/>
                                 <exclude reference="PTz-BG-NnA"/>
                                 <exclude reference="iyW-bE-hrK"/>
+                                <exclude reference="uKE-Fv-MJ8"/>
+                            </mask>
+                            <mask key="constraints">
+                                <exclude reference="UaR-Si-8sh"/>
+                                <exclude reference="ma2-J6-7mc"/>
+                                <exclude reference="P3K-FT-Gjy"/>
                             </mask>
                         </variation>
                         <variation key="widthClass=compact">
@@ -162,23 +180,28 @@
                                 <include reference="37d-s4-3On"/>
                                 <include reference="PTz-BG-NnA"/>
                                 <include reference="iyW-bE-hrK"/>
+                                <include reference="uKE-Fv-MJ8"/>
                             </mask>
                             <mask key="constraints">
-                                <include reference="090-0O-nai"/>
-                                <include reference="p54-Lc-ge9"/>
-                                <include reference="BP1-Z7-hdc"/>
-                                <include reference="W1T-NG-qLY"/>
-                                <include reference="HLh-RR-vQq"/>
-                                <include reference="YwW-Rk-NPQ"/>
                                 <include reference="3er-4Z-p3e"/>
                                 <include reference="gLb-65-MRf"/>
                                 <include reference="qsX-SG-5g7"/>
+                                <include reference="HLh-RR-vQq"/>
+                                <include reference="YwW-Rk-NPQ"/>
+                                <include reference="UaR-Si-8sh"/>
+                                <include reference="090-0O-nai"/>
+                                <include reference="ma2-J6-7mc"/>
+                                <include reference="p54-Lc-ge9"/>
+                                <include reference="BP1-Z7-hdc"/>
+                                <include reference="P3K-FT-Gjy"/>
+                                <include reference="W1T-NG-qLY"/>
                             </mask>
                         </variation>
                     </view>
                     <tabBarItem key="tabBarItem" title="Set Game" image="setCard" id="0vv-kW-EgX"/>
                     <connections>
                         <outlet property="cardSuperView" destination="iyW-bE-hrK" id="5y6-kL-g0E"/>
+                        <outlet property="moreCardsButton" destination="uKE-Fv-MJ8" id="z4T-yk-IPZ"/>
                         <outlet property="resetButton" destination="37d-s4-3On" id="in1-5S-3mb"/>
                         <outlet property="scoreLabel" destination="PTz-BG-NnA" id="nI7-KC-Mgq"/>
                     </connections>

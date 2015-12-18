@@ -14,20 +14,22 @@
 
 @interface ViewController : UIViewController
 
-@property (nonatomic, strong) Deck *deck;
+
 @property (nonatomic, strong) CardMatchingGame *game;
+@property (nonatomic, strong) Deck *deck;
+@property (nonatomic) NSUInteger numberOfCards;
+@property (nonatomic) BOOL resetWasPressed;
+
 @property (nonatomic, strong) Grid *cardGrid;
 @property (nonatomic, strong) NSMutableArray *cardViews;
 @property (weak, nonatomic) IBOutlet UIView *cardSuperView;
-
-@property (nonatomic) BOOL resetWasPressed;
 
 // protected
 // for subclasses
 - (Deck *)createDeck;   //abstract
 - (void)updateUI;
 - (void)updateScore;
-- (NSUInteger) numberOfCardsForGame;
+- (void)setCardViewFrames;
 
 @end
 

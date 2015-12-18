@@ -25,32 +25,19 @@
 -(void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:YES];
+    
+    self.numberOfCards = 20;
+    
     [self updateCardsToMatch];
-    [self updateUI];
-}
-
-- (NSUInteger) numberOfCardsForGame
-{
-    return 20;
-}
-
-- (void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation
-{
-    self.cardGrid.size = self.cardSuperView.bounds.size;
     [self updateUI];
 }
 
 -(void) createCards
 {
     for (int i = 0; i < self.cardGrid.minimumNumberOfCells; i++) {
-        CGRect frame = [self.cardGrid frameOfCellAtRow:i/4 inColumn:i%4];
-    
-        CGFloat widthSpace = (self.cardSuperView.bounds.size.width-4*frame.size.width)/5;
+        PlayingCardView *cardView = [[PlayingCardView alloc] init];
         
-        PlayingCardView *cardView = [[PlayingCardView alloc] initWithFrame: CGRectMake(frame.origin.x+(i%4+1)*widthSpace, frame.origin.y+4*(i/4+1), frame.size.width, frame.size.height)];
-        
-        UITapGestureRecognizer *tapRecognizer = [[UITapGestureRecognizer alloc]
-                                                 initWithTarget:self action:@selector(tap:)];
+        UITapGestureRecognizer *tapRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tap:)];
         tapRecognizer.numberOfTapsRequired = 1;
         [cardView addGestureRecognizer:tapRecognizer];
         
@@ -78,24 +65,6 @@
         [self updateUI];
         [super updateScore];
     }
-}
-
--(void)setCardViewFrames
-{
-    int cardViewIndex = 0;
-    for (int row = 0; row < self.cardGrid.rowCount; row++) {
-        for (int col = 0; col < self.cardGrid.columnCount; col++) {
-            if (cardViewIndex < self.cardGrid.minimumNumberOfCells) {
-                UIView *view = [self.cardViews objectAtIndex:cardViewIndex];
-                
-                CGRect frame = [self.cardGrid frameOfCellAtRow:row inColumn:col];
-                view.frame = CGRectMake(frame.origin.x, frame.origin.y, frame.size.width, frame.size.height);
-                
-                cardViewIndex++;
-            }
-        }
-    }
-
 }
 
 -(void)updateUI

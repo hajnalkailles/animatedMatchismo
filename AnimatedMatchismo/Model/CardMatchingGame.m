@@ -101,9 +101,23 @@ static const int COST_TO_CHOOSE = 1;
     return (index < [self.cards count]) ? self.cards[index] : nil;
 }
 
+- (void)addNewCard
+{
+    Card *card = [self.cardDeck drawRandomCard];
+    if (card) {
+        [self.cards addObject:card];
+        self.cardsPlayed++;
+    }
+}
+
 - (NSUInteger)numberOfCardsPlayed
 {
     return self.cardsPlayed;
+}
+
+- (NSUInteger)numberOfCardsInDeck
+{
+    return self.cardDeck.cardsInDeck;
 }
 
 - (instancetype)init

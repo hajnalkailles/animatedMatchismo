@@ -12,7 +12,7 @@
 #import "SetCard.h"
 
 @interface SetGameViewController ()
-
+@property (weak, nonatomic) IBOutlet UIButton *moreCardsButton;
 @end
 
 @implementation SetGameViewController
@@ -25,32 +25,46 @@
 -(void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:YES];
+    
+    self.numberOfCards = 12;
+    
     [self updateCardsToMatch];
     [self updateUI];
 }
 
-- (NSUInteger) numberOfCardsForGame
-{
-    return 12;
+- (IBAction)touchMoreCardsButton:(UIButton *)sender {
+    int i = 0;
+    while ((([self.game numberOfCardsInDeck]-self.game.numberOfCardsPlayed) > 0) && (i < 3)) {
+        self.cardGrid.minimumNumberOfCells++;
+        self.numberOfCards++;
+        i++;
+    }
+    [self addCards:i];
+    [self updateUI];
 }
 
-- (void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation
+-(void) addCards:(NSUInteger)numberOfCardsToAdd
 {
-    self.cardGrid.size = self.cardSuperView.bounds.size;
-    [self updateUI];
+    for (int i = 0; i < numberOfCardsToAdd; i++) {
+        SetCardView *cardView = [[SetCardView alloc] init];
+        
+        UITapGestureRecognizer *tapRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tap:)];
+        tapRecognizer.numberOfTapsRequired = 1;
+        [cardView addGestureRecognizer:tapRecognizer];
+        
+        [self.cardViews addObject:cardView];
+        [self.cardSuperView addSubview:cardView];
+        
+        [self.game addNewCard];
+    }
 }
 
 -(void) createCards
 {
     for (int i = 0; i < self.cardGrid.minimumNumberOfCells; i++) {
-        CGRect frame = [self.cardGrid frameOfCellAtRow:i/4 inColumn:i%4];
+        SetCardView *cardView = [[SetCardView alloc] init];
         
-        CGFloat widthSpace = (self.cardSuperView.bounds.size.width-4*frame.size.width)/5;
-        
-        SetCardView *cardView = [[SetCardView alloc] initWithFrame: CGRectMake(frame.origin.x+(i%4+1)*widthSpace, frame.origin.y+4*(i/4+1), frame.size.width, frame.size.height)];
-        
-        UITapGestureRecognizer *tapRecognizer = [[UITapGestureRecognizer alloc]
-                                                 initWithTarget:self action:@selector(tap:)];
+        UITapGestureRecognizer *tapRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tap:)];
         tapRecognizer.numberOfTapsRequired = 1;
         [cardView addGestureRecognizer:tapRecognizer];
         
@@ -80,24 +94,6 @@
     }
 }
 
--(void)setCardViewFrames
-{
-    int cardViewIndex = 0;
-    for (int row = 0; row < self.cardGrid.rowCount; row++) {
-        for (int col = 0; col < self.cardGrid.columnCount; col++) {
-            if (cardViewIndex < self.cardGrid.minimumNumberOfCells) {
-                UIView *view = [self.cardViews objectAtIndex:cardViewIndex];
-                
-                CGRect frame = [self.cardGrid frameOfCellAtRow:row inColumn:col];
-                view.frame = CGRectMake(frame.origin.x, frame.origin.y, frame.size.width, frame.size.height);
-                
-                cardViewIndex++;
-            }
-        }
-    }
-    
-}
-
 -(void)updateUI
 {
     [UIView animateWithDuration:0.5 animations:^{
@@ -118,6 +114,12 @@
         } completion: nil];
         
         [UIView animateWithDuration:0.5 delay: 1.0 options: UIViewAnimationOptionTransitionNone animations:^{
+            self.numberOfCards = 12;
+            self.cardGrid = nil;
+            self.game = nil;
+            self.cardViews = nil;
+            [self createCards];
+            
             int cardViewIndex = 0;
             for (int row = 0; row < self.cardGrid.rowCount; row++) {
                 for (int col = 0; col < self.cardGrid.columnCount; col++) {
@@ -162,7 +164,6 @@
         }
     }
     [super updateScore];
-
 }
 
 - (void)updateCardsToMatch

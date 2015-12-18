@@ -9,28 +9,11 @@
 #import "SetCardView.h"
 
 @interface SetCardView()
-@property (nonatomic) CGFloat faceCardScaleFactor;
 @end
 
 @implementation SetCardView
 
 #pragma mark - Properties
-
-#define DEFAULT_FACE_CARD_SCALE_FACTOR 0.90
-
-@synthesize faceCardScaleFactor = _faceCardScaleFactor;
-
-- (CGFloat)faceCardScaleFactor
-{
-    if (!_faceCardScaleFactor) _faceCardScaleFactor = DEFAULT_FACE_CARD_SCALE_FACTOR;
-    return _faceCardScaleFactor;
-}
-
-- (void)setFaceCardScaleFactor:(CGFloat)faceCardScaleFactor
-{
-    _faceCardScaleFactor = faceCardScaleFactor;
-    [self setNeedsDisplay];
-}
 
 - (void)setNumber:(NSUInteger)number
 {
@@ -44,15 +27,15 @@
     [self setNeedsDisplay];
 }
 
-- (void)setShading:(NSString *)shading
-{
-    _shading = shading;
-    [self setNeedsDisplay];
-}
-
 - (void)setColor:(NSUInteger)color
 {
     _color = color;
+    [self setNeedsDisplay];
+}
+
+- (void)setShading:(NSString *)shading
+{
+    _shading = shading;
     [self setNeedsDisplay];
 }
 
@@ -107,7 +90,7 @@
             [self drawShapeWithHorizontalOffset:0 verticalOffset: SHAPE_OFFSET2_PERCENTAGE];
             [self drawShapeWithHorizontalOffset:0 verticalOffset: -SHAPE_OFFSET2_PERCENTAGE];
             break;
-        default:
+        case 3:
             [self drawShapeWithHorizontalOffset:0 verticalOffset:0];
             [self drawShapeWithHorizontalOffset:0 verticalOffset:SHAPE_OFFSET3_PERCENTAGE];
             [self drawShapeWithHorizontalOffset:0 verticalOffset:-SHAPE_OFFSET3_PERCENTAGE];
@@ -148,7 +131,7 @@
                                      (middle.x-(middle.x-symbolSize.width/2.0-hoffset*self.bounds.size.width))*4,
                                      (middle.y-(middle.y-symbolSize.height/2.0))*2)];
             break;
-        default:
+        case 3:
         {
             [symbolPath moveToPoint:CGPointMake(104, 15)];
             [symbolPath addCurveToPoint:CGPointMake(63, 54) controlPoint1:CGPointMake(112.4, 36.9) controlPoint2:CGPointMake(89.7, 60.8)];
@@ -159,7 +142,6 @@
             [symbolPath addCurveToPoint:CGPointMake(104, 15) controlPoint1:CGPointMake(95.3, 10) controlPoint2:CGPointMake(100.9, 6.9)];
             
             [symbolPath applyTransform:CGAffineTransformMakeScale(0.9524*squiggleSize.width/100, 0.9524*squiggleSize.height/50)];
-            
             [symbolPath applyTransform:CGAffineTransformMakeTranslation(middle.x - symbolSize.width, middle.y - squiggleSize.height/2-voffset*self.bounds.size.height)];
         }
             break;
@@ -174,7 +156,7 @@
         case 2:
             tempColor = [UIColor redColor];
             break;
-        default:
+        case 3:
             tempColor = [UIColor purpleColor];
             break;
     }
