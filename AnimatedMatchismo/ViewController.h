@@ -14,7 +14,6 @@
 
 @interface ViewController : UIViewController
 
-
 @property (nonatomic, strong) CardMatchingGame *game;
 @property (nonatomic, strong) Deck *deck;
 @property (nonatomic) NSUInteger numberOfCards;

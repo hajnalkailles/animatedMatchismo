@@ -97,6 +97,7 @@
 -(void)updateUI
 {
     [UIView animateWithDuration:0.5 animations:^{
+        self.cardGrid.size = self.cardSuperView.bounds.size;
         [self setCardViewFrames];
     } completion:nil];
     

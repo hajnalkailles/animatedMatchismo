@@ -58,6 +58,11 @@
 {
 }
 
+- (void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation
+{
+    [self updateUI];
+}
+
 - (void)updateUI  //abstract
 {
 }
